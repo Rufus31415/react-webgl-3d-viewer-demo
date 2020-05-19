@@ -1,8 +1,8 @@
-# Welcome
+# 3D file viewer made for the web
 
 This 3D viewer is purely made of javascript that runs locally on your browser. It allows you to load 45+ 3D model formats.
 
-Demo : https://rufus31415.github.io/sandbox/3d-file-viewer
+Demo : https://rufus31415.github.io/sandbox/3d-viewer
 
 It is based on WebGL and WebAssembly technologies as well as the Unity 3D rendering engine and the Assimp library. It also relies on a lot of code I wrote myself.
 
