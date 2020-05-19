@@ -3,6 +3,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import InfoIcon from '@material-ui/icons/Info';
 import Popup from './Popup'
 import Slide from '@material-ui/core/Slide';
+import CodeBlock from "./CodeBlock";
 
 // import md with raw-loader webpack plugin, see react-app-rewired and config-overrides.js
 /* eslint import/no-webpack-loader-syntax: off */
@@ -24,7 +25,10 @@ export default function HomePopup(props) {
 
     const content = (
     <DialogContentText>
-         <ReactMarkdown source={getText()} />
+         <ReactMarkdown 
+         source={getText()} 
+         renderers={{ code: CodeBlock }}
+         />
     </DialogContentText>);
 
     return (

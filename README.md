@@ -87,9 +87,47 @@ I don't know yet if I will continue to develop this viewer to make it a separate
 
 If that's the case, I could make it a separate React component that could be installed via NPM.
 
-``` npm install my-super-3d-viewer-react ```
+``` shell
+npm install my-super-3d-viewer-react 
+```
+
+And the javascript code would looks like :
+
+``` js
+import Viewer from 'my-super-3d-viewer-react'
+
+export default function App() {
+
+    // path to my 3D file or binaries of my file
+    const file = "https://ballcuber.github.io/assets/models/ballcuber.glb"
+
+    const onViewerReady = () => {
+        // Viewer is ready to use
+    }
+
+    const onViewerLoaded = () => {
+        // The file has loaded successfully
+    }
+
+    const onViewerError = () => {
+        // An error has occurred
+    }
+
+    return (
+          <Viewer
+            file={file}
+            onReady = {onViewerReady}
+            onLoaded = {onViewerLoaded}
+            onError = {onViewerError}
+          />
+    );
+}
+```
 
 Why not also isolate the loader to make it an extension to other 3D engines like Three.js.
 
 Why not buy a Unity pro account to remove the watermak when loading.
 
+I would also like to reduce the size of the build, it is currently ~8Mb.
+
+I hope you'll like it, don't hesitate to ask me for improvements or ideas!

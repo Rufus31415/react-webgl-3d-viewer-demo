@@ -3,7 +3,7 @@ import Unity, { UnityContent } from "react-unity-webgl";
 import { makeStyles } from '@material-ui/core/styles';
 
 const unityContent = new UnityContent(
-    "Build/Build.json",
+    "Build/build.json",
     "Build/UnityLoader.js",
     {
         adjustOnWindowResize: true
@@ -38,17 +38,23 @@ export default function Viewer(props) {
         setReady(true)
         loadFile();
 
-      if(typeof props.onReady == "function")  props.onReady();
+        if (typeof props.onReady == "function") props.onReady();
     }
     );
 
     unityContent.on("OnLoaded", () => {
-        if(typeof props.onLoaded == "function")  props.onLoaded();    
+        try {
+            if (typeof props.onLoaded == "function") props.onLoaded();
+        }
+        catch{ }
     }
     );
 
     unityContent.on("OnError", () => {
-        if(typeof props.onError == "function")  props.onError();    
+        try {
+            if (typeof props.onError == "function") props.onError();
+        }
+        catch{ }
     }
     );
 
@@ -57,31 +63,37 @@ export default function Viewer(props) {
     }, [props.file]);
 
     const loadFile = () => {
-        if (props.file &&  typeof props.file == "object") {
-            var reader = new FileReader();
-            reader.onload = (function (file) {
-                return function (e) {
-                    (window.filedata = window.filedata ? window.filedata : {})[file.name] = e.target.result;
-                    unityContent.send("root", "FileUpload", file.name)
-                    setFileName(file.name);
+        try {
+            if (props.file && typeof props.file == "object") {
+                var reader = new FileReader();
+                reader.onload = (function (file) {
+                    return function (e) {
+                        (window.filedata = window.filedata ? window.filedata : {})[file.name] = e.target.result;
+                        unityContent.send("root", "FileUpload", file.name)
+                        setFileName(file.name);
+                    }
+                })(props.file);
+                reader.readAsArrayBuffer(props.file);
+            }
+            else if (typeof props.file == "string") {
+                unityContent.send("root", "Load", JSON.stringify({ file: props.file }))
+                setFileName(props.file);
+            }
+            else {
+                unityContent.send("root", "Clear");
+                setFileName("");
+            }
         }
-            })(props.file);
-            reader.readAsArrayBuffer(props.file);
-        }
-        else if (typeof props.file == "string") {
-            unityContent.send("root", "Load", JSON.stringify({ file: props.file }))
-            setFileName(props.file);
-        }
-        else{
-            unityContent.send("root", "Clear");
-            setFileName("");
+        catch (e) {
+            console.log(e);
+            if (typeof props.onError == "function") props.onError();
         }
 
     }
 
     return (
         <div className={classes.root} >
-             <Unity unityContent={unityContent} height="100%" width="100%" className={classes.unityContent} />
+            <Unity unityContent={unityContent} height="100%" width="100%" className={classes.unityContent} />
         </div>
     )
 }

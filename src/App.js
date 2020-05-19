@@ -14,10 +14,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import OpenInBrowserIcon from '@material-ui/icons/OpenInBrowser';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1,
+    zIndex: theme.zIndex.drawer + 2,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -113,13 +113,17 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
-  }
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
 }));
 
 export default function App() {
   const classes = useStyles();
   const theme = useTheme();
-  
+
   /** Snack bars */
   const { enqueueSnackbar } = useSnackbar();
 
@@ -131,14 +135,14 @@ export default function App() {
 
   /** Home popup */
   const shouldOpenHomePopup = () => {
-    if(typeof localStorage!='undefined') {
+    if (typeof localStorage != 'undefined') {
       return localStorage.getItem('homePopup') == null;
     }
     else return true;
   }
 
-  const onCloseHomePopup = () =>{
-    if(typeof localStorage!='undefined') {
+  const onCloseHomePopup = () => {
+    if (typeof localStorage != 'undefined') {
       localStorage.setItem('homePopup', true);
     }
   }
@@ -148,6 +152,11 @@ export default function App() {
   /** Try popup */
   const [tryPopupOpened, setTryPopupOpened] = React.useState(false);
 
+  const openTryPopup = () => {
+    autoOpenDrawer();
+    setTryPopupOpened(true);
+  }
+
   /** Format popup */
   const [formatPopupOpened, setFormatPopupOpened] = React.useState(false);
   const [openedFormat, setOpenedFormat] = React.useState(null);
@@ -156,21 +165,23 @@ export default function App() {
   const [file, setFile] = React.useState(window.location + "formats/FBX/models/box.fbx");
 
   const onViewerReady = () => {
+    setShowProgress(false)
   }
 
   const onViewerLoaded = () => {
     showSnackbar("success", "Model loaded with success")
+    setShowProgress(false)
   }
 
   const onViewerError = () => {
     showSnackbar("error", "An error has occurred. If you are trying to load a model, could you please email it to me at rufus31415@gmail.com ?")
+    setShowProgress(false)
   }
 
   /** left drawer */
   const shouldOpenDrawer = () => window.innerWidth / window.innerHeight > 1;
-  const autoOpenDrawer = () => setOpen(shouldOpenDrawer());
-
   const [open, setOpen] = React.useState(shouldOpenDrawer());
+  const autoOpenDrawer = () => { if (open) setOpen(shouldOpenDrawer()) };
 
   const handleDrawerOpen = () => setOpen(true);
 
@@ -182,15 +193,19 @@ export default function App() {
   /** Menu right */
 
   const openFormatPopup = (format) => {
+    autoOpenDrawer();
     setOpenedFormat(format);
     setFormatPopupOpened(true);
   }
 
   const onClickInfo = () => sethomePopupOpened(true);
 
+  /** Progress */
+  const [showProgress, setShowProgress] = React.useState(true);
+
 
   return (
-         <div className={classes.root}>
+    <div className={classes.root}>
       <HomePopup
         open={homePopupOpened}
         setOpen={sethomePopupOpened}
@@ -246,7 +261,7 @@ export default function App() {
               className={classes.button}
               startIcon={<InfoIcon />}
               onClick={onClickInfo}
-              >
+            >
               Info
             </Button>
           </div>
@@ -294,7 +309,7 @@ export default function App() {
         <List>
           <ListItem button
             key="browser"
-            onClick={() => setTryPopupOpened(true)}
+            onClick={openTryPopup}
           >
             <ListItemIcon><OpenInBrowserIcon /></ListItemIcon>
             <ListItemText primary="Try my files" />
@@ -317,11 +332,14 @@ export default function App() {
         <div className={classes.toolbar} />
 
         <Paper elevation={3} className={classes.innerContent}>
+          <Backdrop className={classes.backdrop} open={showProgress} >
+            <CircularProgress color="inherit" />
+          </Backdrop>
           <Viewer
             file={file}
-            onReady = {onViewerReady}
-            onLoaded = {onViewerLoaded}
-            onError = {onViewerError}
+            onReady={onViewerReady}
+            onLoaded={onViewerLoaded}
+            onError={onViewerError}
           />
         </Paper>
 
