@@ -1,13 +1,13 @@
 {
 "companyName": "Rufus31415",
-"productName": "PussyCAD 3D Viewer",
+"productName": "MultiCAD 3D Viewer",
 "dataUrl": "build.data.unityweb",
 "wasmCodeUrl": "build.wasm.code.unityweb",
 "wasmFrameworkUrl": "build.wasm.framework.unityweb",
 "TOTAL_MEMORY": 1073741824,
 "graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
 "webglContextAttributes": {"preserveDrawingBuffer": false},
-"splashScreenStyle": "Dark",
+"splashScreenStyle": "Light",
 "backgroundColor": "transparent",
 "cacheControl": {"default": "must-revalidate"}
 }

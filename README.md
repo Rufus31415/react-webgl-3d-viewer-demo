@@ -24,6 +24,7 @@ You can also load your own 3D models by browsing your disk or by pointing to a u
 
 # Supported formats
 Here are the supported formats :
+- OnShape
 - 3DS
 - 3MF
 - AC

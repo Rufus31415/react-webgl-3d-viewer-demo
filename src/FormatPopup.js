@@ -44,7 +44,8 @@ export default function FormatPopup(props) {
 
   const onModelClick = (model) => {
     props.setOpen(false);
-    props.setFile(window.location  +model.file);
+    if(model.file.startsWith("http")) props.setFile(model.file);
+    else props.setFile(window.location  + model.file);
   }
 
   const content = props.format ? (

@@ -187,6 +187,39 @@
             ]
         },
         {
+            "url": "https://www.onshape.com/",
+            "description": "Onshape is a computer-aided design (CAD) software system, delivered over the Internet via a Software as a Service (SAAS) model. It makes extensive use of cloud computing, with compute-intensive processing and rendering performed on Internet-based servers, and users are able to interact with the system via a web browser or the iOS and Android apps.",
+            "name": "OnShape",
+            "extension": "onshape",
+            "id": "OnShape",
+            "models": [
+                {
+                    "file": "https://cad.onshape.com/documents/0cc05df50afa7069d40d5b29/w/4e9a02bde82a52420bb553ee/e/6d739c0ee09a45d88f809d15",
+                    "name": "BallCuber",
+                    "size": "",
+                    "thumbnail": "formats/OnShape/models/BallCuber.png"
+                },
+                {
+                    "file": "https://cad.onshape.com/documents/0cc05df50afa7069d40d5b29/w/4e9a02bde82a52420bb553ee/e/af1653a7fa67658e00c67315",
+                    "name": "coupling",
+                    "size": "",
+                    "thumbnail": "formats/OnShape/models/coupling.png"
+                },
+                {
+                    "file": "https://cad.onshape.com/documents/0cc05df50afa7069d40d5b29/w/4e9a02bde82a52420bb553ee/e/4a5a667392e4fecce483cd1c",
+                    "name": "motor",
+                    "size": "",
+                    "thumbnail": "formats/OnShape/models/motor.png"
+                },
+                {
+                    "file": "https://cad.onshape.com/documents/0cc05df50afa7069d40d5b29/w/4e9a02bde82a52420bb553ee/e/a80d9fc422a10aaf03d43764",
+                    "name": "sphere",
+                    "size": "",
+                    "thumbnail": "formats/OnShape/models/sphere.png"
+                }
+            ]
+        },
+        {
             "url": "https://en.wikipedia.org/wiki/Wavefront_.obj_file",
             "description": "OBJ (or .OBJ) is a geometry definition file format first developed by Wavefront Technologies for its Advanced Visualizer animation package. The file format is open and has been adopted by other 3D graphics application vendors.\r\nThe OBJ file format is a simple data-format that represents 3D geometry alone — namely, the position of each vertex, the UV position of each texture coordinate vertex, vertex normals, and the faces that make each polygon defined as a list of vertices, and texture vertices. Vertices are stored in a counter-clockwise order by default, making explicit declaration of face normals unnecessary. OBJ coordinates have no units, but OBJ files can contain scale information in a human readable comment line.\r\nMaterials that describe the visual aspects of the polygons are stored in external .mtl files. More than one external MTL material file may be referenced from within the OBJ file. The .mtl file may contain one or more named material definitions. ",
             "name": "Wavefront OBJ",
