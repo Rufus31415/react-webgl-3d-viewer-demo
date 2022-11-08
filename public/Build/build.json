@@ -4,7 +4,7 @@
 "dataUrl": "build.data.unityweb",
 "wasmCodeUrl": "build.wasm.code.unityweb",
 "wasmFrameworkUrl": "build.wasm.framework.unityweb",
-"TOTAL_MEMORY": 1073741824,
+"TOTAL_MEMORY": 2130706432,
 "graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
 "webglContextAttributes": {"preserveDrawingBuffer": false},
 "splashScreenStyle": "Light",

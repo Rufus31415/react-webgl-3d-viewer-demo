@@ -1,0 +1,1 @@
+An AssetBundle is an archive file that contains WebGL non-code Assets that Unity can load at run time
